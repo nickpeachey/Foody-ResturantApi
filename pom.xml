@@ -38,14 +38,43 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <scm>
+        <connection>https://github.com/nickpeachey/Foody-ResturantApi.git</connection>
+        <developerConnection>https://github.com/nickpeachey/Foody-ResturantApi.git</developerConnection>
+        <tag>develop</tag>
+        <url>https://github.com/nickpeachey/Foody-ResturantApi.git</url>
+    </scm>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>buildnumber</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>{0,number}</format>
+                    <items>
+                        <item>buildNumber</item>
+                    </items>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
+                </configuration>
+            </plugin>
         </plugins>
+        <finalName>${project.artifactId}.${buildNumber}-SNAPSHOT</finalName>
     </build>
 
 </project>
